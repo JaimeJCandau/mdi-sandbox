@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                text-align: left; 
+                padding: 20px; 
+                background-color: #f6f3f3; 
+            }
+            h2 {
+                color: #333;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                margin: 10px 0;
+                font-size: 16px;
+            }
+            a {
+                color: #007BFF;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+        <script>
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            async function fetchBrokenLinks() {
+                let site = getQueryParam("site") || "jaimejcandau.com"; // Default to jaimejcandau.com if no site parameter
+                const apiUrl = `https://app.mdi.marketgoo.com/api/domains/${encodeURIComponent(site)}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json",
+                            "Authorization": "Bearer 8|QTgu8Z5htBFrapqzjcoE0iLisvDk88wvAWHSmQfp4c6d281f"
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    // Validate response structure
+                    if (!data.data || !data.data.details || !data.data.details.num_broken_links) {
+                        throw new Error("Invalid API response format");
+                    }
+
+                    const brokenLinks = data.data.details.num_broken_links;
+
+                    // Display site title dynamically
+                    let htmlContent = `<h2>The list of Broken Links from mDI's API (for site= for ${site})</h2>`;
+
+                    if (brokenLinks.length === 0) {
+                        htmlContent += `<p>No broken links found for this site.</p>`;
+                    } else {
+                        htmlContent += "<ul>";
+                        brokenLinks.forEach(item => {
+                            htmlContent += `<li>🔗 <a href="${item.page}" target="_blank">${item.page}</a></li>`;
+                        });
+                        htmlContent += "</ul>";
+                    }
+
+                    document.getElementById("broken-links").innerHTML = htmlContent;
+
+                } catch (error) {
+                    document.getElementById("broken-links").innerHTML = `<p>Error fetching data.</p>`;
+                    console.error("API Error:", error);
+                }
+            }
+
+            window.onload = fetchBrokenLinks;
+        </script>
+    </head>
+    <body>
+        <p><strong>What is this iframe?</strong> It's an embedable HMTL/JS that retrieves data from mDI's API</p>
+        <p><strong>What does it do?</strong> Makes an API call to mDI, retrieves info, and displays itnicely (below, example with broken links)</p>
+        <p><strong>Where can it be added?</strong> Anywhere, really. It can be added to Exabytes' Private Client Area, for example. Or it could also be an intersitial within that User Zone</p>
+        <p><strong>How does it know the domain?</strong> Currently, it simply gets the domain from the URL (Please append any of these to the URL and see the changes ?site=jaimejcandau.com, ?site=abdisentosa.co.id or ?site=acccim.org.my)</p>
+        <p><strong>Can it get it from another place?</strong> Yes. Imagine that the Users's Private area has the domain name somewhere... it could simply get it from there</p>
+        <div id="broken-links"></div>
+        <p>Note: Since we have full control of this iframe, we could add a message like: "These are the pages that have broken links. Having broken links could create a bad user experience. Go to those pages and remove them."</p>
+    </body>
+</html>
