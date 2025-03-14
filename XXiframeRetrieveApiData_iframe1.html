@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin: 50px;
+        }
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: 2px solid #000;
+            background-color: #f0f0f0;
+        }
+    </style>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        window.onload = function() {
+            let site = getQueryParam("site") || "jaimejcandau.com"; // Default to jaimejcandau.com if no site parameter
+            const iframe = document.getElementById("dynamicIframe");
+            iframe.src = `https://jjcsandbox.s3.eu-west-3.amazonaws.com/mdi/iframeRetrieveApiData_IFRAME.html?site=${encodeURIComponent(site)}`;
+        };
+    </script>
+</head>
+<body>
+    <h1>Idea to Brainstorm. </h1>
+    <h2>Context</h2>
+    <p>We need an easy way to add mDI's details about a specific domain into a partner's site. so that users can see them (e.g. list of broken links)</p>
+    <p>The partner could simply add the details to that page... but that requires dev, and won't happen short term</p>
+   
+    <h2>Solution to discuss</h2>
+    <p>Create an iframe like the one below. </p>
+       
+    <iframe id="dynamicIframe" src="about:blank"></iframe>
+
+    <p>Note: Surely, loads of corner cases to discuss, etc... but feels like a simply enough approach to try!!</p>
+</body>
+</html>
