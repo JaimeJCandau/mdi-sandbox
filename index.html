@@ -5,11 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML File Preview</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        ul { list-style: none; padding: 0; }
-        li { margin: 10px 0; }
-        a { text-decoration: none; color: #007bff; font-size: 18px; }
-        a:hover { text-decoration: underline; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -28,21 +54,37 @@
             .then(response => response.json())
             .then(data => {
                 const fileList = document.getElementById("file-list");
-                const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
+                let htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
 
                 if (htmlFiles.length === 0) {
                     fileList.innerHTML = "<p>No HTML files found.</p>";
                     return;
                 }
 
-                htmlFiles.forEach(file => {
-                    const listItem = document.createElement("li");
-                    const link = document.createElement("a");
-                    link.href = basePreviewURL + file.path;
-                    link.textContent = file.path;
-                    link.target = "_blank";
-                    listItem.appendChild(link);
-                    fileList.appendChild(listItem);
+                // Fetch commit timestamps for sorting
+                const fetchPromises = htmlFiles.map(file => 
+                    fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=${file.path}&per_page=1`)
+                        .then(response => response.json())
+                        .then(commits => ({
+                            path: file.path,
+                            url: basePreviewURL + file.path,
+                            date: commits[0]?.commit.committer.date || "1970-01-01T00:00:00Z"
+                        }))
+                );
+
+                Promise.all(fetchPromises).then(filesWithDates => {
+                    // Sort by date (newest first)
+                    filesWithDates.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    filesWithDates.forEach(file => {
+                        const listItem = document.createElement("li");
+                        const link = document.createElement("a");
+                        link.href = file.url;
+                        link.textContent = file.path;
+                        link.target = "_blank";
+                        listItem.appendChild(link);
+                        fileList.appendChild(listItem);
+                    });
                 });
             })
             .catch(error => console.error("Error fetching repository files:", error));
