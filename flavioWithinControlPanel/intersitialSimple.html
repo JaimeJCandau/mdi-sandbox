@@ -43,15 +43,25 @@
             }
         </style>
         <script>
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param) || "unknown";
+            }
+
             function showFlavioImage() {
                 document.getElementById("flavio-img").style.display = "block";
             }
+
+            window.onload = function() {
+                let domainName = getQueryParam("site");
+                document.getElementById("iframe-url").innerText = `https://jaimejcandau.github.io/mdi-sandbox/flavioWithinControlPanel/intersitial.html?site=${domainName}`;
+            };
         </script>
     </head>
     <body>
         <p>This iframe/intersitial is loaded within the Control Panel, and it gets the domain_name from it</p>
         <p>See the iframe's URL below</p>
-        <p>https://jaimejcandau.github.io/mdi-sandbox/flavioWithinControlPanel/intersitial.html?site={{domain_name}}</p>
+        <p id="iframe-url"></p>
         <p>This way, the iframe knows which domain to load info for (no CORS, etc...)</p>
         <p>The iframe does the API call to mDI, and returns all info</p>
         
