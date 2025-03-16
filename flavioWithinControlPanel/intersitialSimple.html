@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                text-align: left; 
+                padding: 20px; 
+                background-color: #f6f3f3; 
+            }
+            h2 {
+                color: #333;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                margin: 10px 0;
+                font-size: 16px;
+            }
+            a {
+                color: #007BFF;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            #flavio-btn {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+                border-radius: 5px;
+            }
+            #flavio-img {
+                display: none;
+                margin-top: 20px;
+                max-width: 100%;
+            }
+        </style>
+        <script>
+            function showFlavioImage() {
+                document.getElementById("flavio-img").style.display = "block";
+            }
+        </script>
+    </head>
+    <body>
+        <p>This iframe/intersitial is loaded within the Control Panel, and it gets the domain_name from it</p>
+        <p>See the iframe's URL below</p>
+        <p>https://jaimejcandau.github.io/mdi-sandbox/flavioWithinControlPanel/intersitial.html?site={{domain_name}}</p>
+        <p>This way, the iframe knows which domain to load info for (no CORS, etc...)</p>
+        <p>The iframe does the API call to mDI, and returns all info</p>
+        
+        <button id="flavio-btn" onclick="showFlavioImage()">Flavio</button>
+        <img id="flavio-img" src="https://t6630524.p.clickup-attachments.com/t6630524/777cf1fc-7fde-4f63-81b7-fd1648855b7f/image.png" alt="Flavio Image">
+    </body>
+</html>
