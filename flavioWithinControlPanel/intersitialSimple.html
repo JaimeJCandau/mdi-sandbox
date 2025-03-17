@@ -1,303 +1,158 @@
-<html>
-    <head>
-        <style>
-            body { 
-                font-family: Arial, sans-serif; 
-                text-align: left; 
-                padding: 20px; 
-                background-color: #f6f3f3; 
-            }
-            h2 {
-                color: #333;
-            }
-            ul {
-                list-style-type: none;
-                padding: 0;
-            }
-            li {
-                margin: 10px 0;
-                font-size: 16px;
-            }
-            a {
-                color: #007BFF;
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-            #flavio-btn {
-                display: inline-block;
-                margin-top: 20px;
-                padding: 10px 15px;
-                background-color: #007BFF;
-                color: white;
-                border: none;
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 5px;
-            }
-            #flavio-img {
-                display: none;
-                margin-top: 20px;
-                max-width: 100%;
-            }
-        </style>
-        <script>
-            function getQueryParam(param) {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get(param) || "unknown";
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Intelligence</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: left; 
+            padding: 20px; 
+            background-color: #f6f3f3; 
+        }
+        h2 {
+            color: #333;
+        }
+        .json-text {
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        #flavio-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        #flavio-img {
+            display: none;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || "unknown";
+        }
 
-            function showFlavioImage() {
-                document.getElementById("flavio-img").style.display = "block";
-            }
+        function showFlavioImage() {
+            document.getElementById("flavio-img").style.display = "block";
+        }
 
-            window.onload = function() {
-                let domainName = getQueryParam("site");
-                document.getElementById("iframe-url").innerText = `https://jaimejcandau.github.io/mdi-sandbox/flavioWithinControlPanel/intersitial.html?site=${domainName}`;
-            };
-        </script>
-    </head>
-    <body>
-        <p>This iframe/intersitial is loaded within the Control Panel, and it gets the domain_name from it</p>
-        <p>See the iframe's URL below</p>
-        <p id="iframe-url"></p>
-        <p>This way, the iframe knows which domain to load info for (no CORS, etc...)</p>
-        <p>The iframe does the API call to mDI, and returns all info</p>
-        <p>
+        window.onload = function() {
+            let domainName = getQueryParam("site");
+            document.getElementById("iframe-url").textContent = `https://jaimejcandau.github.io/mdi-sandbox/flavioWithinControlPanel/intersitial.html?site=${domainName}`;
+        };
+    </script>
+</head>
+<body>
 
+    <p>This is the iframe's URL</p>
+    <p id="iframe-url"></p>
+    <p>This way, the iframe knows which domain to load info for (no CORS issues, etc.).</p>
+    <p>The iframe makes an API call to mDI and returns all the info.</p>
+
+    <pre class="json-text">
+{
+    "data": {
+        "rows": [
             {
-                "data": {
-                  "rows": [
-                    {
-                      "domain_name": "testingdomainexabytesmarketgooapp.com",
-                      "external_id": "id_1",
-                      "tld": ".com",
-                      "success_score": "86",
-                      "success_level": "3",
-                      "parked": "0",
-                      "security_score": "60",
-                      "security_level": "4",
-                      "added_date": "2024-05-10",
-                      "creation_date": "2023-10-21",
-                      "update_date": "2024-06-24",
-                      "expiration_date": "2025-05-25",
-                      "country": "PT",
-                      "organic_traffic": "233",
-                      "organic_keyword_count": "10",
-                      "adword_traffic": "2997",
-                      "adword_keyword_count": "3",
-                      "top_keyword_count": "10",
-                      "incoming_links": "16",
-                      "incoming_domain_links": "57",
-                      "outgoing_links": "2871",
-                      "outgoing_domain_links": "3373",
-                      "seo_score": "73",
-                      "seo_level": "3",
-                      "detected_cms": "wordpress",
-                      "detected_cms_version": "1.0",
-                      "detected_cms_version_offset": "3",
-                      "detected_technologies": "apache,postgresql,php,redis",
-                      "ssl_status": "3",
-                      "ssl_expiration_date": "2025-04-11",
-                      "ssl_certificate_type": "",
-                      "ssl_certificate_issuer": "",
-                      "social_accounts": "facebook,instagram,linkedin,tiktok,twitter,youtube",
-                      "social_accounts_total": "6",
-                      "social_facebook_account": "account",
-                      "social_instagram_account": "account",
-                      "social_linkedin_account": "account",
-                      "social_tiktok_account": "account",
-                      "social_twitter_account": "account",
-                      "social_youtube_account": "account",
-                      "indexed_google": "1",
-                      "robots_txt": "1",
-                      "sitemap_xml": "0",
-                      "num_pages": "39",
-                      "num_pages_level": "4",
-                      "content_update_score": "16",
-                      "content_update_level": "3",
-                      "num_server_errors": "1",
-                      "num_broken_links": "4",
-                      "performance_score": "72",
-                      "performance_level": "3",
-                      "response_time": "1524",
-                      "response_code": "200",
-                      "response_url": "",
-                      "response_content": "text/html",
-                      "detected_chat": "intercom",
-                      "site_type": "Corporate",
-                      "industry_name": "Games",
-                      "registrar_name": "Cloudflare",
-                      "abuse_status": "2",
-                      "dns_server": "ns.domain.com,ns2.domain.com",
-                      "hosting_ip": "12.34.56.78",
-                      "hosting_ipv6": "c552:d2e3:bffa:326c:14e8:f49b:d601:7cf6",
-                      "mx_server": "mx.email.com,mx2.email.com",
-                      "spf_status": "1",
-                      "dkim_status": "1",
-                      "dmarc_status": "1",
-                      "domain_status": 1,
-                      "network_name": "Cloudflare",
-                      "home_title": "My awesome website",
-                      "home_meta_description": "This is my awesome website",
-                      "seo_preferred_subdomain": 1,
-                      "seo_nodesc_count": 1,
-                      "seo_longdesc_count": 1,
-                      "seo_notitle_count": 1,
-                      "seo_longtitle_count": 1,
-                      "seo_dupetitle_count": 1,
-                      "seo_longurl_count": 1,
-                      "seo_urldesc_count": 1,
-                      "seo_noh1_count": 1,
-                      "seo_imgalt_count": 1,
-                      "seo_imgattr_count": 1,
-                      "seo_manylinks_count": 1,
-                      "seo_structureddata": true,
-                      "details": {
-                        "num_server_errors": [
-                          "https://domain.com/page"
-                        ],
-                        "num_broken_links": [
-                          {
-                            "page": "https://domain.com/page",
-                            "pages": [
-                              "https://domain.com/link1",
-                              "https://domain.com/link2",
-                              "https://domain.com/link3",
-                              "https://domain.com/link4",
-                              "https://domain.com/link5"
-                            ]
-                          }
-                        ],
-                        "seo_nodesc_count": [
-                          "https://domain.com/page"
-                        ],
-                        "seo_longdesc_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "text": "Long text or URL",
-                            "length": 1000
-                          }
-                        ],
-                        "seo_notitle_count": [
-                          "https://domain.com/page"
-                        ],
-                        "seo_longtitle_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "text": "Long text or URL",
-                            "length": 1000
-                          }
-                        ],
-                        "seo_dupetitle_count": [
-                          {
-                            "title": "Title",
-                            "pages": [
-                              "https://domain.com/link1",
-                              "https://domain.com/link2",
-                              "https://domain.com/link3",
-                              "https://domain.com/link4",
-                              "https://domain.com/link5"
-                            ]
-                          }
-                        ],
-                        "seo_longurl_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "text": "Long text or URL",
-                            "length": 1000
-                          }
-                        ],
-                        "seo_urldesc_count": [
-                          "https://domain.com/page"
-                        ],
-                        "seo_noh1_count": [
-                          "https://domain.com/page"
-                        ],
-                        "seo_imgalt_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "pages": [
-                              "https://domain.com/link1",
-                              "https://domain.com/link2",
-                              "https://domain.com/link3",
-                              "https://domain.com/link4",
-                              "https://domain.com/link5"
-                            ]
-                          }
-                        ],
-                        "seo_imgattr_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "pages": [
-                              "https://domain.com/link1",
-                              "https://domain.com/link2",
-                              "https://domain.com/link3",
-                              "https://domain.com/link4",
-                              "https://domain.com/link5"
-                            ]
-                          }
-                        ],
-                        "seo_manylinks_count": [
-                          {
-                            "page": "https://domain.com/page",
-                            "text": "Long text or URL",
-                            "length": 1000
-                          }
-                        ],
-                        "seo_structureddata": [],
-                        "ssl_error": "Certificate has expired",
-                        "sitemap_url": "https://domain.com/sitemap.xml"
-                      }
-                    }
-                  ],
-                  "breakdown": [
-                    "tld"
-                  ],
-                  "trend": []
-                },
-                "meta": {
-                  "pagination": {
-                    "total": 100,
-                    "pages": 10,
-                    "current_page": 1,
-                    "page_size": 10
-                  },
-                  "filters": [
-                    {
-                      "property": "detected_technologies",
-                      "operator": "eq",
-                      "values": "wordpress"
-                    }
-                  ],
-                  "searches": [
-                    {
-                      "property": "detected_technologies",
-                      "operator": "eq",
-                      "values": "wordpress"
-                    }
-                  ],
-                  "breakdowns": [
-                    "tld"
-                  ],
-                  "columns": [
-                    "tld"
-                  ],
-                  "sorting": [
-                    {
-                      "property": "tld",
-                      "direction": "asc"
-                    }
-                  ]
-                }
-              }
+                "domain_name": "testingdomainexabytesmarketgooapp.com",
+                "external_id": "id_1",
+                "tld": ".com",
+                "success_score": "86",
+                "success_level": "3",
+                "parked": "0",
+                "security_score": "60",
+                "security_level": "4",
+                "added_date": "2024-05-10",
+                "creation_date": "2023-10-21",
+                "update_date": "2024-06-24",
+                "expiration_date": "2025-05-25",
+                "country": "PT",
+                "organic_traffic": "233",
+                "organic_keyword_count": "10",
+                "adword_traffic": "2997",
+                "adword_keyword_count": "3",
+                "top_keyword_count": "10",
+                "incoming_links": "16",
+                "incoming_domain_links": "57",
+                "outgoing_links": "2871",
+                "outgoing_domain_links": "3373",
+                "seo_score": "73",
+                "seo_level": "3",
+                "detected_cms": "wordpress",
+                "detected_cms_version": "1.0",
+                "detected_technologies": "apache,postgresql,php,redis",
+                "ssl_status": "3",
+                "ssl_expiration_date": "2025-04-11",
+                "social_accounts": "facebook,instagram,linkedin,tiktok,twitter,youtube",
+                "social_accounts_total": "6",
+                "indexed_google": "1",
+                "robots_txt": "1",
+                "sitemap_xml": "0",
+                "num_pages": "39",
+                "num_pages_level": "4",
+                "content_update_score": "16",
+                "content_update_level": "3",
+                "num_server_errors": "1",
+                "num_broken_links": "4",
+                "performance_score": "72",
+                "performance_level": "3",
+                "response_time": "1524",
+                "response_code": "200",
+                "detected_chat": "intercom",
+                "site_type": "Corporate",
+                "industry_name": "Games",
+                "registrar_name": "Cloudflare",
+                "abuse_status": "2",
+                "dns_server": "ns.domain.com,ns2.domain.com",
+                "hosting_ip": "12.34.56.78",
+                "mx_server": "mx.email.com,mx2.email.com",
+                "spf_status": "1",
+                "dkim_status": "1",
+                "dmarc_status": "1",
+                "domain_status": 1,
+                "network_name": "Cloudflare",
+                "home_title": "My awesome website",
+                "home_meta_description": "This is my awesome website",
+                "seo_structureddata": true
+            }
+        ]
+    }
+}
+    </pre>
 
-</p>
+    <button id="flavio-btn" type="button" onclick="showFlavioImage()">Tell me how to improve my site</button>
+    <img id="flavio-img" src="https://t6630524.p.clickup-attachments.com/t6630524/777cf1fc-7fde-4f63-81b7-fd1648855b7f/image.png" alt="Flavio Image">
 
-
-        
-        <button id="flavio-btn" onclick="showFlavioImage()">Tell me how to improve my site</button>
-        <img id="flavio-img" src="https://t6630524.p.clickup-attachments.com/t6630524/777cf1fc-7fde-4f63-81b7-fd1648855b7f/image.png" alt="Flavio Image">
-    </body>
+</body>
 </html>
