@@ -15,19 +15,21 @@
     };
 
     function initFreshChatIfAgentOnline() {
-      if (window.fcWidget) {
-        window.fcWidget.on("widget:loaded", function () {
-          window.fcWidget.user.getAgentAvailability(function (availability) {
-            if (availability && availability.isAvailable) {
-              window.fcWidget.setWidgetVisibility("show");
-            } else {
-              window.fcWidget.setWidgetVisibility("hide");
-            }
+      const checkWidgetReady = setInterval(function () {
+        if (window.fcWidget && typeof window.fcWidget.on === "function") {
+          clearInterval(checkWidgetReady);
+
+          window.fcWidget.on("widget:loaded", function () {
+            window.fcWidget.user.getAgentAvailability(function (availability) {
+              if (availability && availability.isAvailable) {
+                window.fcWidget.setWidgetVisibility("show");
+              } else {
+                window.fcWidget.setWidgetVisibility("hide");
+              }
+            });
           });
-        });
-      } else {
-        console.warn("fcWidget not loaded yet");
-      }
+        }
+      }, 200); // Check every 200ms
     }
 
     function loadFreshChatScript(callback) {
