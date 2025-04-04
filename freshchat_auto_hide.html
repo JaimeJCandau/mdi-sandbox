@@ -2,45 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FreshChat Conditional Widget.</title>
+  <title>FreshChat Conditional Widget</title>
 </head>
 <body>
   <h1>Welcome to Our Website</h1>
   <p>This page will show the FreshChat widget only when an agent is online.</p>
 
 <script>
-  window.fcSettings = {
-    token: "75e2c316-0fb9-4461-bcc9-9a81075e056c",
-    host: "https://wchat.freshchat.com"
-  };
+  const freshchatToken = "75e2c316-0fb9-4461-bcc9-9a81075e056c";
 
-  (function(d, id){
-    if (d.getElementById(id)) return;
-    var fcJS = d.createElement("script");
-    fcJS.id = id;
-    fcJS.async = true;
-    fcJS.src = "https://wchat.freshchat.com/js/widget.js";
-    d.head.appendChild(fcJS);
-  })(document, "freshchat-js-sdk");
+  fetch(`https://wchat.freshchat.com/_api/public/availability?token=${freshchatToken}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.availableAgents > 0) {
+        // Agents are online, load the widget
+        window.fcSettings = {
+          token: freshchatToken,
+          host: "https://wchat.freshchat.com"
+        };
 
-  // Wait for the widget to be ready
-  function checkAvailabilityAndShowWidget() {
-    if (window.fcWidget) {
-      window.fcWidget.on("widget:loaded", function () {
-        window.fcWidget.user.getAgentAvailability(function (availability) {
-          if (availability && availability.availableAgents > 0) {
-            window.fcWidget.open(); // or use .show() if you prefer
-          } else {
-            console.log("No agents online, chat widget not shown.");
-          }
-        });
-      });
-    } else {
-      setTimeout(checkAvailabilityAndShowWidget, 300);
-    }
-  }
-
-  checkAvailabilityAndShowWidget();
+        (function(d, id){
+          if (d.getElementById(id)) return;
+          var fcJS = d.createElement("script");
+          fcJS.id = id;
+          fcJS.async = true;
+          fcJS.src = "https://wchat.freshchat.com/js/widget.js";
+          d.head.appendChild(fcJS);
+        })(document, "freshchat-js-sdk");
+      } else {
+        console.log("No agents online – widget not loaded.");
+      }
+    })
+    .catch(err => {
+      console.error("Error checking agent availability", err);
+    });
 </script>
 
 </body>
