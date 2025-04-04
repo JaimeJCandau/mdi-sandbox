@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FreshChat Conditional Widget</title>
+</head>
+<body>
+  <h1>Welcome to Our Website</h1>
+  <p>This page will show the FreshChat widget only when an agent is online.</p>
+
+  <script>
+    window.fcSettings = {
+      token: "75e2c316-0fb9-4461-bcc9-9a81075e056c", // ← Replace this with your real FreshChat token
+      host: "https://wchat.freshchat.com"
+    };
+
+    function loadFreshChatScript() {
+      var fcScript = document.createElement("script");
+      fcScript.id = "freshchat-lib";
+      fcScript.src = "https://wchat.freshchat.com/js/widget.js";
+      fcScript.async = true;
+      document.head.appendChild(fcScript);
+    }
+
+    function initFreshChatIfAgentOnline() {
+      window.fcWidget.on("widget:loaded", function () {
+        window.fcWidget.user.getAgentAvailability(function (availability) {
+          if (availability && availability.isAvailable) {
+            window.fcWidget.setWidgetVisibility("show");
+          } else {
+            window.fcWidget.setWidgetVisibility("hide");
+          }
+        });
+      });
+    }
+
+    window.addEventListener("load", function () {
+      loadFreshChatScript();
+      initFreshChatIfAgentOnline();
+    });
+  </script>
+</body>
+</html>
