@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Freshchat Hosted Widget Test</title>
+</head>
+<body>
+
+  <h1>Freshchat Test with fcWidgetMessengerConfig</h1>
+
+  <script>
+    window.fcWidgetMessengerConfig = {
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@gmail.com",
+      phone: "+123456789",
+      meta: {
+        linkedin: "https://linkedin.com/in/johndoe",
+        cf_custom_property: "Beta Tester"
+      }
+    };
+  </script>
+
+  <!-- Replace this URL with your actual widget script -->
+  <script src='//fw-cdn.com/12807504/785979.js' chat='true'></script>
+
+</body>
+</html>
