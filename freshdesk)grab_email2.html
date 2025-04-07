@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freshchat Widget Test</title>
+</head>
+<body>
+  <h1>Freshchat Test Page</h1>
+
+  <!-- Freshchat hosted widget -->
+  <script 
+    src="//eu.fw-cdn.com/12807504/785979.js" 
+    chat="true" 
+    widgetId="9975dd6c-e35d-40b8-acfc-77ae3613ad9c">
+  </script>
+
+  <!-- Wait until Freshchat is ready -->
+  <script>
+    function waitForFreshchatWidget(callback) {
+      if (window.fcWidget && window.fcWidget.on) {
+        callback();
+      } else {
+        setTimeout(function () {
+          waitForFreshchatWidget(callback);
+        }, 200);
+      }
+    }
+
+    waitForFreshchatWidget(function () {
+      window.fcWidget.on('widget:ready', function () {
+        // Official Freshchat user setup per docs
+        window.fcWidget.setExternalId("john.doe1987"); // unique user ID in your system
+        window.fcWidget.user.setFirstName("John");
+        window.fcWidget.user.setEmail("john.doe@gmail.com");
+
+        // Optional: custom fields (must exist in Freshchat CRM schema)
+        window.fcWidget.user.setProperties({
+          cf_plan: "Pro",        // custom field: plan
+          cf_status: "Active"    // custom field: status
+        });
+      });
+    });
+  </script>
+</body>
+</html>
