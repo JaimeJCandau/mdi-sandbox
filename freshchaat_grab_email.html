@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freshchat Widget Test</title>
+</head>
+<body>
+  <h1>Freshchat Test Page</h1>
+
+  <!-- Freshchat widget script -->
+  <script 
+    src="//eu.fw-cdn.com/12807504/785979.js" 
+    chat="true" 
+    widgetId="9975dd6c-e35d-40b8-acfc-77ae3613ad9c">
+  </script>
+
+  <!-- Set user details -->
+  <script>
+    window.fcWidget && window.fcWidget.on('widget:ready', function () {
+      // Set external ID (optional unique user identifier)
+      window.fcWidget.setExternalId("user_12345");
+
+      // Set user properties (replace with dynamic values in real use)
+      window.fcWidget.user.setProperties({
+        firstName: "Jane",
+        lastName: "Doe",
+        email: "jane.doe@example.com"
+      });
+    });
+  </script>
+</body>
+</html>
