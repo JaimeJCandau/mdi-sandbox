@@ -10,13 +10,12 @@
   <p>Como el chat esto esta DENTRO de mDI, se entiende que todo el que escribe está logueado. En este contexto, tiene sentido pasar el userName e email al chat, de modo que el agente sepa con quién está hablando. Esto es especialmente importante cuando no hay nadie online... porque así podemos saber quién ha escrito, y responderles (en el set up actual, esto no lo anticipamos, y no tenemos forma de saber quien ha escrito!!!)</p>
   </br>
   <p>(ver el código, que queda mucho más claro ;p )</p>
-  <!-- Candau añade un john doe aquí... Reemplazar, por favor, por la variable relevante -->
+  
+  <!-- Candau añade un john doe aquí... Reemplazar, por favor, por la variable relevante. SOLO incluimos nombre e email, que es lo que hay en mDI. Se puede cambiar si hace falta -->
   <script>
     window.fcWidgetMessengerConfig = {
       firstName: "John",
-      lastName: "Doe",
       email: "john.doe@gmail.com",
-      phone: "+123456789",
       meta: {
         cf_custom_property: "User"
       }
