@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Testing code to pass theuser email within the chat</title>
+</head>
+<body>
+
+  <h1>Testing code to pass theuser email within the chat</h1>
+  <p>Como esto esta DENTRO de mDI, se entiende que todo el que escribe está logueado. En este contexto, tiene sentido pasar esos detalles al chat, de modo que el agente sepa con quién está hablando. Esto es especialmente importante cuando no hay nadie online... porque así podemos saber quién ha escrito, y responderles (en el set up actual, esto no lo anticipamos, y no tenemos forma de saber quien ha escrito)</p>
+
+  <!-- Candau añade un john doe aquí... Reemplazar, por favor, por la variable relevante -->
+  <script>
+    window.fcWidgetMessengerConfig = {
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@gmail.com",
+      phone: "+123456789",
+      meta: {
+        cf_custom_property: "User"
+      }
+    };
+  </script>
+
+
+
+<!-- we currently have 2 different chats. One for mSI and one for mDI. Please use whichever relevant AND comment the other-->
+  
+<!-- Add this for the mSI chat 
+<script
+  src='//eu.fw-cdn.com/12807504/785979.js'
+  chat='true' widgetId='9975dd6c-e35d-40b8-acfc-77ae3613ad9c'>
+</script>
+-->
+
+<!-- Add this for the mDI chat -->  
+<script
+  src='//eu.fw-cdn.com/12807504/785979.js'
+  chat='true'>
+</script>
+  
+</body>
+</html>
