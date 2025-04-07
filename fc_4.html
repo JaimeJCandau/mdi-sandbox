@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freshchat Preload Identity</title>
+
+  <script>
+    window.fcSettings = {
+      token: "9975dd6c-e35d-40b8-acfc-77ae3613ad9c",  // your widget ID
+      host: "https://wchat.freshchat.com",
+      externalId: "john.doe1987", // unique user ID
+      firstName: "John",
+      email: "john.doe@gmail.com",
+      // Optional: custom properties (must exist in Freshchat)
+      // These will only show up if they match defined custom contact fields
+      user: {
+        properties: {
+          cf_plan: "Pro",
+          cf_status: "Active"
+        }
+      }
+    };
+  </script>
+
+  <!-- Hosted Freshchat widget -->
+  <script 
+    src="//eu.fw-cdn.com/12807504/785979.js" 
+    chat="true" 
+    widgetId="9975dd6c-e35d-40b8-acfc-77ae3613ad9c">
+  </script>
+</head>
+<body>
+  <h1>Freshchat Identity Preload</h1>
+</body>
+</html>
